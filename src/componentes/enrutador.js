@@ -11,6 +11,10 @@ export const enrutador = {
     admin: import('../vistas/admin/loginAdmin.js'),
     //Habitacion
     habitaciones: import('../vistas/admin/habitacion/habitacionVista.js'),
+    //Servicios
+    servicios: import('../vistas/admin/servicios/servicioVista.js'),
+    //Usuarios
+    usuarios: import('../vistas/admin/usuarios/usuariosVista.js'),
     // administrador: import('../vistas/admin/adminVista.js'),
     // nuevaHabitacion: import('../vistas/admin/habitacion/crearhabitacion.js'),
     // editarHabitacion: import('../vistas/admin/habitacion/editarHabitacion.js'),

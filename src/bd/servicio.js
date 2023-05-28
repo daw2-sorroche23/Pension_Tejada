@@ -75,7 +75,9 @@ export class Servicio {
       const token = localStorage.getItem('token')
       const response = await fetch(url, {
         method: 'DELETE',
-        Authorization: `Bearer ${token}`
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       })
 
       // Verificar el estado de la respuesta

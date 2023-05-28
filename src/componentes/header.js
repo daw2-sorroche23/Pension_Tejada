@@ -78,7 +78,7 @@ export const header = {
             <a class="nav-link habitacion" href="#about">Habitaciones</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#rooms">Servicios</a>
+            <a class="nav-link" href="/#/servicios">Servicios</a>
         </li>
         <li class="nav-item">
         <a class="nav-link" href="#rooms">Pisos</a>
@@ -87,7 +87,7 @@ export const header = {
     <a class="nav-link" href="#rooms">Reservas</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" href="#rooms">Usuarios</a>
+<a class="nav-link" href="/#/usuarios">Usuarios</a>
 </li>
         <li class="nav-item mt-3 mt-lg-0">
             <a class="main-btn deslogeate" href="#">Deslogearte</a>

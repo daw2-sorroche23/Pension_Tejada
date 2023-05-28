@@ -103,7 +103,7 @@ export default {
                   <a class="nav-link habitacion" href="#about">Habitaciones</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="#rooms">Servicios</a>
+                  <a class="nav-link" href="/#/servicios">Servicios</a>
               </li>
               <li class="nav-item">
               <a class="nav-link" href="#rooms">Pisos</a>
@@ -112,7 +112,7 @@ export default {
           <a class="nav-link" href="#rooms">Reservas</a>
       </li>
       <li class="nav-item">
-      <a class="nav-link" href="#rooms">Usuarios</a>
+      <a class="nav-link" href="/#/usuarios">Usuarios</a>
   </li>
               <li class="nav-item mt-3 mt-lg-0">
                   <a class="main-btn deslogeate" href="#">Deslogearte</a>
@@ -121,7 +121,11 @@ export default {
           window.location = '/#/home'
           }
         } catch (error) {
-          alert('No se ha podido iniciar sesión ' + error)
+          Swal.fire({
+            icon: 'error',
+            title: 'Error en logearse',
+            text: 'No se ha podido iniciar sesión'
+          })
         }
       }
     })

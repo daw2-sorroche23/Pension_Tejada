@@ -11,6 +11,7 @@ export class User {
         }
       })
       const data = await response.json()
+      console.log(data)
       return data
     } catch (error) {
       console.log(error)
@@ -40,7 +41,7 @@ export class User {
         telefono: telefonoC,
         avatar: avatarC
       }
-      console.log(data)
+      
       const response = await fetch(url, {
         method: 'POST',
         headers: {
