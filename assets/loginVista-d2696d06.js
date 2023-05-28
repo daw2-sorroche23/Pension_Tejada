@@ -1,5 +1,5 @@
 import { U as User } from "./user-6a8eb802.js";
-import { S as Swal } from "./main-e7604b5f.js";
+import { S as Swal } from "./main-fa8fe1e0.js";
 const loginVista = {
   template: `
   <div class="intro-login">

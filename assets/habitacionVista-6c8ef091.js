@@ -1,5 +1,5 @@
 import { H as Habitacion } from "./habitacion-03cb0866.js";
-import { S as Swal } from "./main-e7604b5f.js";
+import { S as Swal } from "./main-fa8fe1e0.js";
 class Imagen {
   // crear registro (método static que se puede leer desde la clase sin necesidad de crear una instancia)
   static async getbyIdHabitacion(id) {
