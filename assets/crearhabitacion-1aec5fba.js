@@ -1,6 +1,6 @@
 import { H as Habitacion } from "./habitacion-03cb0866.js";
-import { S as Swal } from "./main-2c66a5a2.js";
-const editarHabitacion = {
+import { S as Swal } from "./main-e7604b5f.js";
+const crearhabitacion = {
   template: `
   <div class="intro-singUp">
   <div class="container-fluid login">
@@ -67,63 +67,22 @@ const editarHabitacion = {
   </div>
 </div>
     `,
-  script: async (id) => {
-    const habitacion = await Habitacion.getAllById(id);
-    const selectCama = document.getElementById("cama");
-    if (habitacion.cama == 0) {
-      selectCama.innerHTML = `
-      <option value="1" >True</option>
-      <option value="0" selected>False</option>
-      `;
-    } else {
-      selectCama.innerHTML = `
-      <option value="1" selected>True</option>
-      <option value="0" >False</option>
-      `;
-    }
-    const selectEscritorio = document.getElementById("escritorio");
-    if (habitacion.escritorio == 0) {
-      selectEscritorio.innerHTML = `
-      <option value="1" >True</option>
-      <option value="0" selected>False</option>
-      `;
-    } else {
-      selectEscritorio.innerHTML = `
-      <option value="1" selected>True</option>
-      <option value="0" >False</option>
-      `;
-    }
-    const selectArmario = document.getElementById("armario");
-    if (habitacion.escritorio == 0) {
-      selectArmario.innerHTML = `
-      <option value="1" >True</option>
-      <option value="0" selected>False</option>
-      `;
-    } else {
-      selectArmario.innerHTML = `
-      <option value="1" selected>True</option>
-      <option value="0" >False</option>
-      `;
-    }
-    const precoInput = document.querySelector("#precioH");
-    precoInput.value = habitacion.precio;
-    const pisoInput = document.querySelector("#pisoH");
-    pisoInput.value = habitacion.cfPiso;
+  script: () => {
     document.querySelector("#form_registro").addEventListener("submit", async function(e) {
       e.preventDefault();
       try {
-        const cama = selectCama.value;
-        const escritorio = selectEscritorio.value;
-        const armario = selectArmario.value;
-        const precio = precoInput.value;
-        const piso = pisoInput.value;
-        const habitacion2 = await Habitacion.update(cama, escritorio, armario, precio, piso, id);
-        if (habitacion2.length > 10) {
-          alert("Habitacion actualizada con éxito");
+        const selectCama = document.getElementById("cama").value;
+        const selectEscritorio = document.getElementById("escritorio").value;
+        const selectArmario = document.getElementById("armario").value;
+        const precio = document.querySelector("#precioH").value;
+        const piso = document.querySelector("#pisoH").value;
+        const habitacion = await Habitacion.create(selectCama, selectEscritorio, selectArmario, precio, piso);
+        if (habitacion.length > 10) {
+          alert("Habitacion creada con éxito");
           window.location.href = "/#/habitacionesAdmin";
         } else {
           let errorHTML = "";
-          for (const error of habitacion2) {
+          for (const error of habitacion) {
             errorHTML += `${error}
 `;
           }
@@ -135,11 +94,11 @@ const editarHabitacion = {
         }
       } catch (error) {
         console.log(error);
-        alert("Error al crear usuario");
+        alert("Error al crear la habitacion");
       }
     });
   }
 };
 export {
-  editarHabitacion as default
+  crearhabitacion as default
 };
