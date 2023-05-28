@@ -1,4 +1,4 @@
-import { S as Swal } from "./main-6aa71b00.js";
+import { S as Swal } from "./main-1b116db7.js";
 class Admin {
   static async login(emailc, passwordc) {
     try {

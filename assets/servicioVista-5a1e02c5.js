@@ -1,4 +1,4 @@
-import { S as Swal } from "./main-6aa71b00.js";
+import { S as Swal } from "./main-1b116db7.js";
 class Servicio {
   // crear registro (método static que se puede leer desde la clase sin necesidad de crear una instancia)
   static async getAll() {
