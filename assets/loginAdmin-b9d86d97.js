@@ -1,6 +1,28 @@
-import { U as User } from "./user-6a8eb802.js";
-import { S as Swal } from "./main-2c66a5a2.js";
-const loginVista = {
+import { S as Swal } from "./main-6aa71b00.js";
+class Admin {
+  static async login(emailc, passwordc) {
+    try {
+      const url = "https://api-production-3aa5.up.railway.app/admin/login";
+      const data = {
+        email: emailc,
+        contrasenya: passwordc
+      };
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
+      const responseData = await response.json();
+      return responseData;
+    } catch (error) {
+      console.error("Error en la solicitud:", error);
+      return error;
+    }
+  }
+}
+const loginAdmin = {
   template: `
   <div class="intro-login">
   <div class="container-fluid login">
@@ -13,7 +35,7 @@ const loginVista = {
                               <img src="../media/logo.jpg" alt="">
                           </div>
                           <div class="login-card-header">
-                              <h1>Sign In</h1>
+                              <h1>Sign In Admin</h1>
                               <div>Please Login to use plataform</div>
                               <form class="login-card-form" id="login">
                                   <div class="form-item">
@@ -33,7 +55,7 @@ const loginVista = {
                                   <button type="submit">Sing In</button>
                               </form>
                               <div class="login-card-footer">
-                                  Don't have an acount? <a href="/#/registro">Create a free acount</a>
+                                  Don't have an acount? <a href="#">Create a free acount</a>
                               </div>
                           </div>
                           <div class="login-card-social">
@@ -73,7 +95,7 @@ const loginVista = {
         try {
           const email = document.querySelector("#emailL").value;
           const contrasenya = document.querySelector("#passwordL").value;
-          const usuarioLogeado = await User.login(email, contrasenya);
+          const usuarioLogeado = await Admin.login(email, contrasenya);
           if (usuarioLogeado.success === false) {
             Swal.fire({
               icon: "error",
@@ -81,22 +103,29 @@ const loginVista = {
               text: "La contrasenya o el email es incorrecto"
             });
           } else {
-            localStorage.setItem("id", usuarioLogeado.cliente.id);
+            localStorage.setItem("id", usuarioLogeado.admin.id);
             localStorage.setItem("token", usuarioLogeado.token);
+            localStorage.setItem("rol", "admin");
             const botones = document.querySelector("#botones");
             botones.innerHTML = `
             <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#home">Inicio</a>
+            <a class="nav-link active" aria-current="page" href="/#/home">Inicio</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="#about">Habitaciones</a>
+                  <a class="nav-link habitacion" href="#about">Habitaciones</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="#rooms">Servicios</a>
+                  <a class="nav-link" href="/#/servicios">Servicios</a>
               </li>
-              <li class="nav-item mt-3 mt-lg-0">
-              <a class="main-btn" href="#">Favoritos</a>
-          </li> 
+              <li class="nav-item">
+              <a class="nav-link" href="#rooms">Pisos</a>
+          </li>
+          <li class="nav-item">
+          <a class="nav-link" href="#rooms">Reservas</a>
+      </li>
+      <li class="nav-item">
+      <a class="nav-link" href="/#/usuarios">Usuarios</a>
+  </li>
               <li class="nav-item mt-3 mt-lg-0">
                   <a class="main-btn deslogeate" href="#">Deslogearte</a>
               </li>
@@ -104,12 +133,16 @@ const loginVista = {
             window.location = "/#/home";
           }
         } catch (error) {
-          alert("No se ha podido iniciar sesión " + error);
+          Swal.fire({
+            icon: "error",
+            title: "Error en logearse",
+            text: "No se ha podido iniciar sesión"
+          });
         }
       }
     });
   }
 };
 export {
-  loginVista as default
+  loginAdmin as default
 };
