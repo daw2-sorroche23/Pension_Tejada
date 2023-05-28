@@ -1,5 +1,6 @@
 
 import { User } from '../../../bd/user'
+import Swal from 'sweetalert2'
 
 export default {
   template: `
@@ -41,6 +42,7 @@ export default {
       tabla += `
       <tr id="${usuario.id}">
       <td>${usuario.id}</td>
+      <td>${usuario.nombre}</td>
       <td>${usuario.primerApellido}</td>
       <td>${usuario.segundoApellido}</td>
       <td>${usuario.email}</td>
@@ -67,7 +69,7 @@ export default {
         
         if (seguro.isConfirmed) {
           const id = e.target.dataset.id;
-          const errores = await Servicio.delete(id);
+          const errores = await User.delete(id);
           if (!errores) {
             console.log(errores);
           }

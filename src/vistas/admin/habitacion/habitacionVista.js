@@ -1,6 +1,7 @@
-import { Favorito } from '../../../bd/favorito'
+
 import { Habitacion } from '../../../bd/habitacion'
 import { Imagen } from '../../../bd/imagen'
+import Swal from 'sweetalert2'
 
 export default {
   template: `
@@ -8,7 +9,7 @@ export default {
   <section class="crud-card">
       <h1>Panel de control</h1>
       <h2 class="mt-5">Habitaciones</h2>
-      <button class="main-btn-crud"  title="Crear habitacion">Añadir</button>
+      <button class="main-btn-crud crear"  title="Crear habitacion">Añadir</button>
       <table class="table mt-4">
           <thead>
               <tr>
@@ -34,7 +35,7 @@ export default {
   `,
   script: async () => {
     const token = localStorage.getItem('token')
-    console.log(token)
+
     if(token===null){
       alert("No tienes permisos")
     }else{
@@ -42,16 +43,12 @@ export default {
 
       const habitaciones = await Habitacion.getAll()
   
-      console.log(habitaciones)
-  
       let tabla = ''
       for (const habitacion of habitaciones) {
         const imagen = await Imagen.getbyIdHabitacion(habitacion.id)
         tabla += `
         <tr id="${habitacion.id}">`
         if (imagen) {
-          console.log(imagen.nombre)
-          console.log(imagen.url)
           tabla += `<td><img src="${imagen.url}" alt="${imagen.nombre}" id="${imagen.id}"></td>`
           // const imagenElement = document.getElementById(`${habitacion.id}`)
           // console.log(imagenElement)
@@ -84,13 +81,26 @@ export default {
 
     main.addEventListener('click', async (e) => {
       if (e.target.classList.contains('eliminar')) {
-        try {
+        const seguro = await Swal.fire({
+          icon: 'question',
+          title: '¿Está seguro que desea borrar la habitacion?',
+          showCancelButton: true,
+          confirmButtonText: 'Sí',
+          cancelButtonText: 'Cancelar'
+        });
+        
+        if (seguro.isConfirmed) {
           const id = e.target.dataset.id
-          await Habitacion.delete(id)
-          const trId = document.getElementById(id)
-          trId.remove()
-        } catch (error) {
-          console.log('Error en eliminar')
+          const errores = await Habitacion.delete(id)
+          if (!errores) {
+            console.log(errores);
+          }
+          Swal.fire({
+            icon: 'info',
+            title: 'Se ha eliminado correctamente'
+          });
+          const trId = document.getElementById(id);
+          trId.remove();
         }
       }
       if (e.target.classList.contains('crear')) {
@@ -103,26 +113,6 @@ export default {
       if (e.target.classList.contains('imagen')) {
         const id = e.target.dataset.id
         window.location = `/#/anadirImagen/${id}`
-      }
-      if (e.target.classList.contains('reserva')) {
-        const id = e.target.dataset.id
-        window.location = `/#/anadirReserva/${id}`
-      }
-      if (e.target.classList.contains('favorito')) {
-        try {
-          const idHabitacion = e.target.dataset.id
-          const idUsuario = localStorage.getItem('id')
-          if (idUsuario) {
-            const favoritoCrear = await Favorito.create(idUsuario, idHabitacion)
-            console.log(favoritoCrear)
-            const favorito = document.querySelector('.favorito')
-            favorito.innerHTML = 'Ya esta en favoritos'
-          } else {
-            alert('Debes registrarte')
-          }
-        } catch (error) {
-
-        }
       }
     })
   }

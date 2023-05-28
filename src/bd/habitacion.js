@@ -40,7 +40,7 @@ export class Habitacion {
         precio: precioC !== '' && !isNaN(parseInt(precioC)) ? parseInt(precioC) : '',
         cfPiso: cfPisoC !== '' && !isNaN(parseInt(cfPisoC)) ? parseInt(cfPisoC) : ''
       }
-
+      
       const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -67,11 +67,14 @@ export class Habitacion {
 
   static async delete (id) {
     try {
+
       const url = `https://api-production-3aa5.up.railway.app/habitacion/${id}`
       const token = localStorage.getItem('token')
       const response = await fetch(url, {
         method: 'DELETE',
-        Authorization: `Bearer ${token}`
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       })
 
       console.log(response)
