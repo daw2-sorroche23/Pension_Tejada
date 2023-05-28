@@ -1,5 +1,5 @@
 import { H as Habitacion } from "./habitacion-03cb0866.js";
-import { S as Swal } from "./main-1b116db7.js";
+import { S as Swal } from "./main-2c66a5a2.js";
 const editarHabitacion = {
   template: `
   <div class="intro-singUp">
